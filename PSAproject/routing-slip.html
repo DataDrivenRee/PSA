@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Routing Slip | PSA</title>
+  <link rel="stylesheet" href="PSA.css" />
+  <script src="routingSlip.js" defer></script>
+</head>
+<body class="routing-slip-page">
+
+  <nav class="navbar">
+    <div class="navbar-header">Philippine Statistics Authority</div>
+    <ul id="navbar-menu">
+      <li><a href="dashboard.html">Home</a></li>
+      <li><a href="routing-slip.html" class="active">Routing Slip</a></li>
+      <li><a href="pending.html">Pending Actions</a></li>
+      <li><a href="urgent.html">Urgent Actions</a></li>
+      <li><a href="completed.html">Completed Actions</a></li>
+      <li><a href="trash.html">Trash</a></li>
+    </ul>
+  </nav>
+
+  <div class="title-bar">
+    <img src="logo/PSA Logo.png" alt="PSA Logo" />
+    <h2 class="page-title">Routing Slip Form</h2>
+  </div>
+
+  <div class="form-container">
+    <form id="routingSlipForm">
+      <div class="form-group">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" required />
+      </div>
+
+      <div class="form-group">
+        <label for="from">From Department:</label>
+        <select id="from" required>
+          <option value="">-- Select Department --</option>
+          <option value="CRASD">CRASD</option>
+          <option value="ORD">ORD</option>
+          <option value="SOCD">SOCD</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="fromEmployee">From Employee:</label>
+        <input type="text" id="fromEmployee" required list="from-list" />
+      </div>
+
+      <div class="form-group">
+        <label for="to">To Department:</label>
+        <select id="to" required>
+          <option value="">-- Select Department --</option>
+          <option value="CRASD">CRASD</option>
+          <option value="ORD">ORD</option>
+          <option value="SOCD">SOCD</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="toEmployee">To Employee:</label>
+        <input type="text" id="toEmployee" required list="to-list" />
+      </div>
+
+      <fieldset class="form-group">
+        <legend>Action:</legend>
+        <label><input type="checkbox" name="action" value="For Appropriate Action" /> For Appropriate Action</label><br>
+        <label><input type="checkbox" name="action" value="For Comments" /> For Comments</label><br>
+        <label><input type="checkbox" name="action" value="For Consideration" /> For Consideration</label><br>
+        <label><input type="checkbox" name="action" value="For Initial/Signature" /> For Initial/Signature</label><br>
+        <label><input type="checkbox" name="action" value="For Information/File" /> For Information/File</label><br>
+        <label><input type="checkbox" id="drafting" name="action" value="For Drafting" /> For Drafting</label>
+      </fieldset>
+
+      <div id="draftDetailsContainer" class="form-group" style="display:none;">
+        <label for="draftDetails">Draft Details:</label>
+        <input type="text" id="draftDetails" placeholder="Enter specifics..." />
+      </div>
+
+      <div class="form-group">
+        <label><input type="checkbox" id="urgent" /> Mark as Urgent</label>
+      </div>
+
+      <div id="urgentReasonContainer" class="form-group" style="display:none;">
+        <label for="urgentReason">Specify Urgent Reason:</label>
+        <input type="text" id="urgentReason" />
+      </div>
+
+      <div class="form-group">
+        <label for="file-upload">Upload File:</label>
+        <input type="file" id="file-upload" />
+      </div>
+
+      <div class="form-group">
+        <label for="signature-upload">Upload Signature:</label>
+        <input type="file" id="signature-upload" accept="image/*" />
+        <img id="signature-preview" alt="Signature Preview"
+             style="max-height:60px; display:block; margin-top:8px;" />
+      </div>
+
+      <div class="form-group">
+        <label for="remarks">Remarks:</label>
+        <textarea id="remarks" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="receivedBy">Received By:</label>
+        <input type="text" id="receivedBy" />
+      </div>
+
+      <button type="submit" class="action-btn">📤 Submit Slip</button>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <p>Philippine Statistics Authority – Routing Slip System</p>
+  </footer>
+</body>
+</html>

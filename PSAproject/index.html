@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | PSA Routing Slip</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <script>
+    // 1) Gate access: redirect if not logged in
+    const userRole = localStorage.getItem('userRole');
+    if (!userRole) {
+      window.location.href = 'login.html';
+    }
+
+    // 2) Logout handler
+    function setupLogout() {
+      document.getElementById('logout').onclick = () => {
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('userDept');
+        window.location.href = 'login.html';
+      };
+    }
+
+    // 3) Hide Profile & Manage Staff links for non‐super users
+    function hideSuperLinks() {
+      if (userRole !== 'super') {
+        document.getElementById('profileLink').style.display = 'none';
+        document.getElementById('manageStaffLink').style.display = 'none';
+      }
+    }
+
+    // 4) Determine divisions to show
+    const userDept = localStorage.getItem('userDept');
+    const divisionsToShow = userRole === 'super'
+      ? ['CRASD','ORD','SOCD']
+      : [userDept];
+
+    // 5) Render Division Overview and Slips table
+    function renderDashboard() {
+      const allSlips = JSON.parse(localStorage.getItem('routingSlips') || '[]');
+
+      // Division Overview
+      const divContainer = document.getElementById('divisionOverview');
+      divisionsToShow.forEach(dept => {
+        const count = allSlips.filter(s => s.from === dept).length;
+        const card  = document.createElement('div');
+        card.className = 'division-card';
+        card.innerHTML = `
+          <h3>${dept}</h3>
+          <p><span>${count}</span> Slips</p>
+          <div class="card-links">
+            <a href="pending.html?dept=${dept}">Pending</a> |
+            <a href="completed.html?dept=${dept}">Completed</a>
+          </div>`;
+        divContainer.appendChild(card);
+      });
+
+      // Urgent card
+      const urgentCount = allSlips.filter(s => s.status === 'Pending' && !!s.urgentReason).length;
+      const urgentCard = document.createElement('div');
+      urgentCard.className = 'division-card';
+      urgentCard.innerHTML = `
+        <h3>🚨 Urgent</h3>
+        <p><span>${urgentCount}</span> Slips</p>
+        <div class="card-links">
+          <a href="urgent.html">View All</a>
+        </div>`;
+      divContainer.appendChild(urgentCard);
+
+      // Routing Slips table
+      const tableBody = document.querySelector('#ordersTable tbody');
+      const searchInput = document.getElementById('searchInput');
+
+      function loadTable() {
+        let slips = allSlips
+          .filter(s => divisionsToShow.includes(s.from))
+          .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        const term = searchInput.value.trim().toLowerCase();
+        if (term) {
+          slips = slips.filter(s => {
+            const user = (s.fromEmployee || '').toLowerCase();
+            const subject = (s.subject || '').toLowerCase();
+            const acts = (Array.isArray(s.actions) ? s.actions.join(', ') : '').toLowerCase();
+            return user.includes(term) || subject.includes(term) || acts.includes(term);
+          });
+        }
+
+        tableBody.innerHTML = slips.map(s => {
+          const user = s.fromEmployee || '-';
+          const subject = s.subject || '-';
+          const actionsArr = Array.isArray(s.actions) ? [...s.actions] : [];
+
+          if (s.draftAction) {
+            actionsArr.push(s.draftDetails ? `${s.draftAction} – ${s.draftDetails}` : s.draftAction);
+          }
+
+          const actionsText = actionsArr.length ? actionsArr.join(', ') : '-';
+          const statusClass = s.status === 'Completed' ? 'paid'
+                             : s.status === 'Deleted' ? 'delete-btn'
+                             : 'pending';
+
+          return `
+            <tr>
+              <td>${user}</td>
+              <td>${subject}</td>
+              <td>${actionsText}</td>
+              <td><span class="status ${statusClass}">${s.status || '-'}</span></td>
+            </tr>`;
+        }).join('');
+      }
+
+      loadTable();
+      searchInput.addEventListener('input', loadTable);
+
+      // Add User helper (testing only)
+      window.addUser = () => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+          <td>New User</td>
+          <td>New Subject</td>
+          <td>#${Math.floor(Math.random() * 90000 + 10000)}</td>
+          <td><span class="status pending">Pending</span></td>`;
+      };
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      setupLogout();
+      hideSuperLinks();
+      renderDashboard();
+    });
+  </script>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Philippine Statistics<br>Authority</h2>
+    <a href="dashboard.html" class="active">📊 Dashboard</a>
+    <a href="routing-slip.html">📝 Routing Slip</a>
+    <a href="pending.html">⏳ Pending</a>
+    <a href="urgent.html">🚨 Urgent</a>
+    <a href="completed.html">✅ Completed</a>
+    <a href="trash.html">🗑️ Trash</a>
+    <hr>
+    <a href="profile.html" id="profileLink">👤 Profile</a>
+    <a href="manage-staff.html" id="manageStaffLink">👥 Manage Staff</a>
+    <a href="#" id="logout">🔐 Logout</a>
+  </div>
+
+  <div class="main">
+    <div class="container">
+      <div class="header">Division Overview</div>
+      <div class="division-overview" id="divisionOverview"></div>
+
+      <div class="header">Routing Slips</div>
+      <div class="search-add">
+        <input type="text" id="searchInput" placeholder="Search user, subject or action...">
+        <button onclick="addUser()">Add User</button>
+      </div>
+
+      <div class="table-wrapper">
+        <table id="ordersTable">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Subject</th>
+              <th>Action Needed</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <footer>© 2025 Philippine Statistics Authority – Routing Slip System</footer>
+  </div>
+</body>
+</html>
+ 

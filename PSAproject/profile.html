@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile | PSA Routing Slip</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="profile.css" />
+  <script>
+    // Redirect to login if not authenticated
+    const role = localStorage.getItem('userRole');
+    if (!role) window.location.href = 'login.html';
+  </script>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Philippine Statistics<br>Authority</h2>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="routing-slip.html">📝 Routing Slip</a>
+    <a href="pending.html">⏳ Pending</a>
+    <a href="completed.html">✅ Completed</a>
+    <a href="trash.html">🗑️ Trash</a>
+    <hr>
+    <a href="profile.html" class="active">👤 Profile</a>
+    <a href="#" id="logout">🔐 Logout</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="container">
+      <div class="header">My Profile</div>
+
+      <!-- Greeting that updates on Save -->
+      <div class="profile-greeting">
+        Hello, <span id="displayName">User</span>!
+      </div>
+
+      <form id="profileForm" class="form-container">
+        <div class="form-group">
+          <label for="role">Role</label>
+          <input type="text" id="role" readonly />
+        </div>
+        <div class="form-group">
+          <label for="dept">Department</label>
+          <input type="text" id="dept" readonly />
+        </div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+        <button type="submit" class="action-btn">Save Changes</button>
+      </form>
+    </div>
+
+    <footer>© 2025 Philippine Statistics Authority – Routing Slip System</footer>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>

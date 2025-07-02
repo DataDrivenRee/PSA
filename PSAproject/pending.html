@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pending Actions | PSA Routing Slip</title>
+  <link rel="stylesheet" href="PSA.css" />
+  <script src="pending.js" defer></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-header">Philippine Statistics Authority</div>
+    <ul id="navbar-menu">
+      <li><a href="dashboard.html">Home</a></li>
+      <li><a href="routing-slip.html">Routing Slip</a></li>
+      <li><a href="pending.html" class="active">Pending Actions</a></li>
+      <li><a href="urgent.html">🚨 Urgent</a></li>
+      <li><a href="completed.html">Completed Actions</a></li>
+      <li><a href="trash.html">Trash</a></li>
+    </ul>
+  </nav>
+
+  <div class="title-bar">
+    <img src="logo/PSA Logo.png" alt="PSA Logo" />
+    <h2 class="page-title">Pending Routing Slips</h2>
+  </div>
+
+  <input type="text"
+         id="searchInput"
+         class="search-bar"
+         placeholder="Search slips…">
+
+  <div id="pendingSlips"></div>
+
+  <footer class="footer">
+    <p>Philippine Statistics Authority – Routing Slip System</p>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Back to top">↑ Top</button>
+
+  <script>
+    // Back-to-top behavior
+    const backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    });
+    backBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

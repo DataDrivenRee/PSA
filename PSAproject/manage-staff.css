@@ -1,0 +1,203 @@
+/* manage-staff.css */
+
+/* Reset & base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color: #0d1b2a;
+  color: white;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar (reuse dashboard style) */
+.sidebar {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  width: 220px;
+  background: #1b263b;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: calc(100vh - 60px);
+}
+.sidebar h2 {
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  border-bottom: 2px solid #415a77;
+  padding-bottom: 10px;
+}
+.sidebar a {
+  color: #cdd5e0;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: #2c3e50;
+  color: #fff;
+}
+
+/* Main */
+.main {
+  margin-left: 270px;
+  padding: 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container */
+.container {
+  background: #1b263b;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  flex: 1;
+}
+
+/* Section header */
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: white;
+  border-bottom: 2px solid #415a77;
+  padding-bottom: 10px;
+}
+
+/* Form container */
+.form-container {
+  background: #2c3e50;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+/* Form group */
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #cdd5e0;
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #415a77;
+  color: #fff;
+  transition: background 0.2s;
+}
+input:focus,
+select:focus {
+  outline: none;
+  background: #4e6a96;
+}
+
+/* Action button */
+.action-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.action-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Table wrapper */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th, td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #2c3e50;
+}
+th {
+  background-color: #415a77;
+}
+tr:nth-child(even) {
+  background-color: #2c3e50;
+}
+
+/* Edit/Delete buttons in-table */
+.edit-btn,
+.delete-btn {
+  padding: 6px 10px;
+  margin-right: 6px;
+  font-size: 12px;
+}
+.edit-btn {
+  background: #38d9a9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+.edit-btn:hover {
+  background: #2fa789;
+}
+.delete-btn {
+  background: #ce1127;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+.delete-btn:hover {
+  background: #a00d20;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 12px;
+  background: #003366;
+  color: white;
+  margin-top: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main   { margin-left: 0; padding: 20px; }
+}

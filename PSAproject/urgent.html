@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urgent Slips | PSA</title>
+  <link rel="stylesheet" href="PSA.css" />
+  <script src="urgent.js" defer></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-header">Philippine Statistics Authority</div>
+    <ul id="navbar-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="routing-slip.html">Routing Slip</a></li>
+      <li><a href="pending.html">Pending Actions</a></li>
+      <li><a href="urgent.html" class="active">🚨 Urgent</a></li>
+      <li><a href="completed.html">Completed Actions</a></li>
+      <li><a href="trash.html">Trash</a></li>
+    </ul>
+  </nav>
+
+  <div class="title-bar">
+    <img src="logo/PSA Logo.png" alt="PSA Logo" />
+    <h2 class="page-title">🚨 Urgent Routing Slips</h2>
+  </div>
+
+  <input type="text" id="searchInput" class="search-bar" placeholder="Search urgent slips…">
+  <div id="urgentSlips"></div>
+
+  <!-- Back to Top Button -->
+  <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" id="backToTopBtn" title="Back to Top">⬆ Top</button>
+
+  <footer class="footer">
+    <p>Philippine Statistics Authority – Routing Slip System</p>
+  </footer>
+
+</body>
+</html>

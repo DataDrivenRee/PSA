@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Staff | PSA Routing Slip</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="manage-staff.css" />
+  <script>
+    // Block non-super users
+    const role = localStorage.getItem('userRole');
+    if (role !== 'super') {
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Philippine Statistics<br>Authority</h2>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="routing-slip.html">📝 Routing Slip</a>
+    <a href="pending.html">⏳ Pending</a>
+    <a href="urgent.html">🚨 Urgent</a>
+    <a href="completed.html">✅ Completed</a>
+    <a href="trash.html">🗑️ Trash</a>
+    <hr>
+    <a href="profile.html">👤 Profile</a>
+    <a href="manage-staff.html" class="active">👥 Manage Staff</a>
+    <a href="#" id="logout">🔐 Logout</a>
+  </div>
+
+  <div class="main">
+    <div class="container">
+      <div class="header">Manage Staff</div>
+
+      <!-- Add / Edit Staff Form -->
+      <form id="staffForm" class="form-container">
+        <input type="hidden" id="editingId" />
+        <div class="form-group">
+          <label for="staffName">Name</label>
+          <input type="text" id="staffName" required />
+        </div>
+        <div class="form-group">
+          <label for="staffEmail">Email</label>
+          <input type="email" id="staffEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="staffPassword">Password</label>
+          <input type="password" id="staffPassword" required />
+        </div>
+        <div class="form-group">
+          <label for="staffDept">Department</label>
+          <select id="staffDept">
+            <option value="CRASD">CRASD</option>
+            <option value="ORD">ORD</option>
+            <option value="SOCD">SOCD</option>
+          </select>
+        </div>
+        <button type="submit" class="action-btn">Save Staff</button>
+      </form>
+
+      <!-- Staff List Table -->
+      <div class="table-wrapper" style="margin-top:20px;">
+        <table id="staffTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer>© 2025 Philippine Statistics Authority – Routing Slip System</footer>
+  </div>
+
+  <script src="manage-staff.js" defer></script>
+</body>
+</html>

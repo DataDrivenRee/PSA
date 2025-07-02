@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Completed Routing Slips | PSA</title>
+  <link rel="stylesheet" href="PSA.css" />
+
+  <!-- html2pdf.js bundle -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <!-- Your script -->
+  <script src="completed.js" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-header">Philippine Statistics Authority</div>
+    <ul id="navbar-menu">
+      <li><a href="dashboard.html">Home</a></li>
+      <li><a href="routing-slip.html">Routing Slip</a></li>
+      <li><a href="pending.html">Pending Actions</a></li>
+      <li><a href="completed.html" class="active">Completed Actions</a></li>
+      <li><a href="trash.html">Trash</a></li>
+    </ul>
+  </nav>
+
+  <div class="title-bar">
+    <img src="logo/PSA Logo.png" alt="PSA Logo" />
+    <h2 class="page-title">Completed Routing Slips</h2>
+  </div>
+
+  <!-- only the search input; no global print button -->
+  <input
+    type="text"
+    id="searchInput"
+    class="search-bar"
+    placeholder="Search slips..."
+  />
+
+  <!-- slips render here -->
+  <div id="completedSlips"></div>
+
+  <footer class="footer">
+    <p>Philippine Statistics Authority – Routing Slip System</p>
+  </footer>
+</body>
+</html>
